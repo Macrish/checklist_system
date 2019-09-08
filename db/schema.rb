@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_08_141630) do
+ActiveRecord::Schema.define(version: 2019_09_08_145835) do
+
+  create_table "checklists", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "status"
+    t.datetime "published_at"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_checklists_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "question_text"
+    t.text "question_description"
+    t.integer "checklist_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["checklist_id"], name: "index_questions_on_checklist_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +44,5 @@ ActiveRecord::Schema.define(version: 2019_09_08_141630) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "questions", "checklists"
 end
