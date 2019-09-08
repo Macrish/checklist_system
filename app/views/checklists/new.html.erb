@@ -1,0 +1,14 @@
+<div class="center">
+	<p class="text-center">
+		<%= form_for(@checklist) do |f| %>
+			<%= f.label :title, "Checklist title", class: "form-control" %>
+			<%= f.text_field :title %>
+			<%= f.label :description, "Checklist description" %>
+			<%= f.text_field :description %>
+			<%= f.submit "Save", class: "waves-effect cyan lighten-1 btn" %>
+		<% end %>
+	</p>
+</div>
+<p>Question text</p>
+<p>Question detailed description</p>
+<a class="btn-floating btn-large cyan lighten-1"><i class="material-icons">+</i></a>
