@@ -7,7 +7,8 @@ class ChecklistsController < ApplicationController
   end
 
   def new
-  	@checklist = Checklist.new
+  	@checklist = current_user.checklists.new
+  	@checklist.questions.build
   end
 
   def create
@@ -25,7 +26,8 @@ class ChecklistsController < ApplicationController
 	end
 
   private
+
 		def checklist_params
-			params.require(:checklist).permit(:title, :description, :user_id)
+			params.require(:checklist).permit(:title, :description, :user_id, questions_attributes: [:id, :question_text, :question_description, :_destroy])
 		end
 end

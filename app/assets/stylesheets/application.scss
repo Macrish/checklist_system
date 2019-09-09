@@ -1,3 +1,13 @@
 @import "materialize/components/color-variables";
 $primary-color: color("cyan", "lighten-1") !default;
 @import "materialize";
+
+div.center {
+	text-align: center;
+}
+
+div.question_block {
+  border: groove;
+  margin-top: 10px;
+  padding: 10px 20px 20px 20px;
+}
