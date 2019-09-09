@@ -1,0 +1,26 @@
+<button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Published</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @checklists.each do |checklist| %>
+      <tr>
+        <td><%= checklist.title %></td>
+        <td><%= checklist.description %></td>
+        <td><%= checklist.status %></td>
+        <td><%= checklist.published_at %></td>
+        <td><%= link_to 'Edit', edit_checklist_path(checklist) %> |
+        	<%= link_to 'Remove', checklist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
