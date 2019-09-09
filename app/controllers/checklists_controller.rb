@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   end
 
   def show
-  	@checklist = current_user.checklists.find(params[:id])
+  	checklist_set
   end
 
   def new
@@ -13,7 +13,7 @@ class ChecklistsController < ApplicationController
   end
 
   def edit
-  	@checklist = current_user.checklists.find(params[:id])
+  	checklist_set
   end
 
   def create
@@ -26,18 +26,22 @@ class ChecklistsController < ApplicationController
   end
 
   def update
-  	@checklist = current_user.checklists.find(params[:id])
+  	checklist_set
   	@checklist.update(checklist_params)
   	redirect_to root_path
   end
 
   def destroy
-		checklist = current_user.checklists.find(params[:id])
-		checklist.destroy
+		checklist_set
+		@checklist.destroy
 		redirect_to root_path
 	end
 
   private
+
+  	def checklist_set
+  		@checklist = current_user.checklists.find(params[:id])
+  	end
 
 		def checklist_params
 			params.require(:checklist).permit(:title, :description, :user_id, questions_attributes: [:id, :question_text, :question_description, :_destroy])
