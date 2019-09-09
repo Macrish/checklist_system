@@ -2,6 +2,10 @@
 $primary-color: color("cyan", "lighten-1") !default;
 @import "materialize";
 
+header {
+	padding-bottom: 30px;
+}
+
 div.center {
 	text-align: center;
 }

@@ -1,14 +1,19 @@
 class ChecklistsController < ApplicationController
   def index
+  	@checklists = current_user.checklists.all
   end
 
   def show
-  	@checklist = Checklist.find(params[:id])
+  	@checklist = current_user.checklists.find(params[:id])
   end
 
   def new
   	@checklist = current_user.checklists.new
   	@checklist.questions.build
+  end
+
+  def edit
+  	@checklist = current_user.checklists.find(params[:id])
   end
 
   def create
@@ -20,8 +25,15 @@ class ChecklistsController < ApplicationController
 		end
   end
 
+  def update
+  	@checklist = current_user.checklists.find(params[:id])
+  	@checklist.update(checklist_params)
+  	redirect_to root_path
+  end
+
   def destroy
-		@checklist.destroy
+		checklist = current_user.checklists.find(params[:id])
+		checklist.destroy
 		redirect_to root_path
 	end
 
