@@ -1,5 +1,11 @@
-<button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
+<script type="text/javascript">
+   $(document).ready(function(){
+   $('.modal').modal();
+   $('.dropdown-trigger').dropdown();
+  });
+</script>
 
+<button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
 <table>
   <thead>
     <tr>
@@ -7,7 +13,7 @@
       <th>Description</th>
       <th>Status</th>
       <th>Published</th>
-      <th>Actions</th>
+      <th colspan="2">Actions</th>
     </tr>
   </thead>
 
@@ -18,8 +24,33 @@
         <td><%= checklist.description %></td>
         <td><%= checklist.status %></td>
         <td><%= checklist.published_at %></td>
-        <td><%= link_to 'Edit', edit_checklist_path(checklist) %> |
-        	<%= link_to 'Remove', checklist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to edit_checklist_path(checklist) do %>
+            <i class="material-icons">create</i> 
+          <% end %>
+        <td>
+          <ul id="dropdown" class="dropdown-content">
+            <li>
+              <%= link_to '#' do %>
+                <i class="material-icons">remove_red_eye</i> Published
+              <% end %>
+            </li>
+            <!-- Remove removing checklist with the wrong id -->
+            <!-- <li>
+              <%= link_to checklist, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="material-icons">delete</i> Remove
+              <% end %>
+            </li> -->
+          </ul>
+          <ul class="dds">
+            <li><a class="dropdown-trigger" data-target="dropdown"><i class="material-icons">more_vert</i></a></li>
+          </ul>
+        </td>
+        <td>
+          <%= link_to checklist, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="material-icons">delete</i> Remove
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
