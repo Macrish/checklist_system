@@ -1,4 +1,6 @@
 class ChecklistsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
+
   def index
   	@checklists = current_user.checklists.all
   end
@@ -27,8 +29,11 @@ class ChecklistsController < ApplicationController
 
   def update
   	checklist_set
-  	@checklist.update(checklist_params)
-  	redirect_to root_path
+  	if @checklist.update(checklist_params)
+  	 redirect_to root_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy

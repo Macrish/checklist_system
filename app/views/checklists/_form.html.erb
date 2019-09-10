@@ -1,5 +1,8 @@
 <div class="center">
-		<%= form_with model: @checklist do |f| %>
+		<%= form_with(scope: @checklist, url: url, method: method, local: true) do |f| %>
+
+			<%= render 'shared/error_explanation' %>
+
 			<div class="row">
         <div class="input-field col s6">
 					<%= f.text_field :title, placeholder: 'Checklist title' %>
