@@ -1,38 +1,43 @@
-<button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Published</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @checklists.each do |checklist| %>
+<% if user_signed_in? %>
+  <button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
+  <table class="highlight">
+    <thead>
       <tr>
-        <td><%= checklist.title %></td>
-        <td><%= checklist.description %></td>
-        <td><%= checklist.status %></td>
-        <td><%= checklist.published_at %></td>
-        <td>
-          <%= link_to edit_checklist_path(checklist) do %>
-            <i class="material-icons ">create</i> 
-          <% end %>
-        </td>
-        <td>
-            <%= link_to checklist_path(checklist, checklist: {status: 'Published'}), method: :put do %>
-              <i class="material-icons">remove_red_eye</i> Published
-            <% end %>
-        </td>
-        <td>
-          <%= link_to checklist, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <i class="material-icons">delete</i> Remove
-          <% end %>
-        </td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Published</th>
+        <th colspan="3">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @checklists.each do |checklist| %>
+        <tr>
+          <td><%= checklist.title %></td>
+          <td><%= checklist.description %></td>
+          <td><%= checklist.status %></td>
+          <td><%= checklist.published_at %></td>
+          <td>
+            <%= link_to edit_checklist_path(checklist) do %>
+              <i class="material-icons ">create</i> 
+            <% end %>
+          </td>
+          <td>
+              <%= link_to checklist_path(checklist, checklist: {status: 'Published'}), method: :put do %>
+                <i class="material-icons">remove_red_eye</i> Published
+              <% end %>
+          </td>
+          <td>
+            <%= link_to checklist, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="material-icons">delete</i> Remove
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+ <h3 class="center"><button class= "waves-effect cyan lighten-5 btn"><%= link_to "Log in", user_session_path %></button> to start create checklist<br>
+  <button class= "waves-effect orange lighten-4 btn"><%= link_to "Sign up", new_user_registration_path %></button> if you don't have an account</h3>
+<% end %>
