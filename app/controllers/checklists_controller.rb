@@ -6,7 +6,7 @@ class ChecklistsController < ApplicationController
   end
 
   def show
-  	checklist_set
+  	set_checklist
   end
 
   def new
@@ -15,11 +15,11 @@ class ChecklistsController < ApplicationController
   end
 
   def edit
-  	checklist_set
+  	set_checklist
   end
 
   def create
-  	@checklist = current_user.checklists.build(checklist_params)
+  	@checklist = current_user.checklists.build(checklist_params.merge(status: 'Draft'))
 		if @checklist.save
 			redirect_to @checklist
 		else
@@ -28,27 +28,30 @@ class ChecklistsController < ApplicationController
   end
 
   def update
-  	checklist_set
-  	if @checklist.update(checklist_params)
-  	 redirect_to root_path
+  	set_checklist
+    # assign_attributes assign new attributes but in database old
+    @checklist.assign_attributes(checklist_params)
+    @checklist.published_at = DateTime.now if @checklist.status == 'Published'
+  	if @checklist.save
+  	  redirect_to root_path
     else
       render 'edit'
     end
   end
 
   def destroy
-		checklist_set
+		set_checklist
 		@checklist.destroy
 		redirect_to root_path
 	end
 
   private
 
-  	def checklist_set
+  	def set_checklist
   		@checklist = current_user.checklists.find(params[:id])
   	end
 
 		def checklist_params
-			params.require(:checklist).permit(:title, :description, :user_id, questions_attributes: [:id, :question_text, :question_description, :_destroy])
+			params.require(:checklist).permit(:title, :description, :status, :user_id, questions_attributes: [:id, :question_text, :question_description, :_destroy])
 		end
 end
