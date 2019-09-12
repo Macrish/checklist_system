@@ -1,1 +1,11 @@
-<%= render 'form' %>
+<div class="row">
+  <div class="col s1">
+    <%= link_to checklists_path, data: { confirm: 'Unsaved changes will clear on going back. Clear?' } do %>
+      <i class="medium material-icons">arrow_back</i>
+    <% end %>
+  </div>
+
+  <div class="col s11">
+    <%= render 'form', method: 'post', url: checklists_path %>
+  </div>
+</div>

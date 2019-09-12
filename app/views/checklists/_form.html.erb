@@ -1,22 +1,25 @@
 <div class="center">
-		<%= form_with model: @checklist do |f| %>
-			<div class="row">
-        <div class="input-field col s6">
-					<%= f.text_field :title, placeholder: 'Checklist title' %>
-				</div>
-				<div class="input-field col s6">
-					<%= f.submit "Save", class: "waves-effect cyan lighten-1 btn" %>
-        </div>
-        <div class="input-field col s8">
-					<%= f.text_field :description, placeholder: 'Checklist description' %>
-				</div>
-			</div>
-			<div class="question_block">
-				<%= f.fields_for :questions do |question_form| %>
-					<%= question_form.text_field :question_text, placeholder: 'Question text' %><br>
-					<%= question_form.text_field :question_description, placeholder: 'Question detailed description' %>
-				<% end %>
-			</div>
-		<% end %>
-	<a class="btn-floating btn-large cyan lighten-1"><i class="material-icons">+</i></a>
+  <%= form_with(scope: @checklist, url: url, method: method, local: true) do |f| %>
+
+    <%= render 'shared/error_explanation' %>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :title, placeholder: 'Checklist title' %>
+      </div>
+      <div class="input-field col s6">
+        <%= f.submit "Save", class: "waves-effect cyan lighten-1 btn" %>
+      </div>
+      <div class="input-field col s8">
+        <%= f.text_field :description, placeholder: 'Checklist description' %>
+      </div>
+    </div>
+    <div class="question_block">
+      <%= f.fields_for :questions do |question_form| %>
+        <%= question_form.text_field :question_text, placeholder: 'Question text' %><br>
+        <%= question_form.text_field :question_description, placeholder: 'Question detailed description' %>
+      <% end %>
+    </div>
+  <% end %>
+  <a class="btn-floating btn-large cyan lighten-1"><i class="material-icons">+</i></a>
 </div>
