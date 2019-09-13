@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	root 'checklists#index'
-  resources :checklists
+	root 'forms#index'
+  resources :forms
   devise_for :users
 end

@@ -10,26 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_08_145835) do
+ActiveRecord::Schema.define(version: 2019_09_13_161226) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string "choice"
+    t.text "comment"
+    t.integer "checklist_id", null: false
+    t.integer "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["checklist_id"], name: "index_answers_on_checklist_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
 
   create_table "checklists", force: :cascade do |t|
+    t.string "project_id"
+    t.integer "user_id", null: false
+    t.integer "form_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["form_id"], name: "index_checklists_on_form_id"
+    t.index ["user_id"], name: "index_checklists_on_user_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "status"
     t.datetime "published_at"
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_checklists_on_user_id"
+    t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "question_text"
     t.text "question_description"
-    t.integer "checklist_id", null: false
+    t.integer "form_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["checklist_id"], name: "index_questions_on_checklist_id"
+    t.index ["form_id"], name: "index_questions_on_form_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,5 +65,10 @@ ActiveRecord::Schema.define(version: 2019_09_08_145835) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "questions", "checklists"
+  add_foreign_key "answers", "checklists"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "checklists", "forms"
+  add_foreign_key "checklists", "users"
+  add_foreign_key "forms", "users"
+  add_foreign_key "questions", "forms"
 end

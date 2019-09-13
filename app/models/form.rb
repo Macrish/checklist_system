@@ -1,6 +1,6 @@
-class Checklist < ApplicationRecord
-	has_many :questions,  inverse_of: :checklist, dependent: :destroy
-	belongs_to :user
+class Form < ApplicationRecord
+	has_many :questions,  inverse_of: :form, dependent: :destroy
+  belongs_to :user
 	validates_presence_of :questions
 	validates_associated :questions
 	validates :title, presence: true, length: { minimum: 5, maximum: 140}

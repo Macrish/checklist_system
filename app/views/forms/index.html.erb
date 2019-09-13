@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_checklist_path %></button>
+  <button class="btn-large grey lighten-3"><%= link_to "Add checklist", new_form_path %></button>
   <table class="highlight">
     <thead>
       <tr>
@@ -12,24 +12,24 @@
     </thead>
 
     <tbody>
-      <% @checklists.each do |checklist| %>
+      <% @forms.each do |form| %>
         <tr>
-          <td><%= checklist.title %></td>
-          <td><%= checklist.description %></td>
-          <td><%= checklist.status %></td>
-          <td><%= checklist.published_at %></td>
+          <td><%= form.title %></td>
+          <td><%= form.description %></td>
+          <td><%= form.status %></td>
+          <td><%= form.published_at %></td>
           <td>
-            <%= link_to edit_checklist_path(checklist) do %>
-              <i class="material-icons ">create</i> 
+            <%= link_to edit_form_path(form) do %>
+              <i class="material-icons">create</i> 
             <% end %>
           </td>
           <td>
-              <%= link_to checklist_path(checklist, checklist: {status: 'Published'}), method: :put do %>
+              <%= link_to form_path(form, form: {status: 'Published'}), method: :put do %>
                 <i class="material-icons">remove_red_eye</i> Published
               <% end %>
           </td>
           <td>
-            <%= link_to checklist, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <%= link_to form, method: :delete, data: { confirm: 'Are you sure?' } do %>
               <i class="material-icons">delete</i> Remove
             <% end %>
           </td>

@@ -1,11 +1,11 @@
-<% if @checklist.errors.any? %>
+<% if @form.errors.any? %>
 	<div id="error_explanation">
 	  <h2>
-	    <%= pluralize(@checklist.errors.count, "error") %> prohibited
-	    this checklist from being saved:
+	    <%= pluralize(@form.errors.count, "error") %> prohibited
+	    this form from being saved:
 	  </h2>
 	  <ul>
-	    <% @checklist.errors.full_messages.each do |msg| %>
+	    <% @form.errors.full_messages.each do |msg| %>
 	      <li><%= msg %></li>
 	    <% end %>
 	  </ul>
